@@ -50,6 +50,8 @@ read s = case span isDigit s of
            (digits, s') -> (Number $ parseInt 0 digits, s')
 
 readList :: [Object] -> String -> (Object, String)
+readList os (' ':s) = readList os s
+readList os ('\n':s) = readList os s
 readList os (')':s) = (list (reverse os), s)
 readList os s = case read s of
                   (o, s') -> readList (o:os) s'
